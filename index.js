@@ -2,7 +2,7 @@
 
 var React = require('react'),
     withSideEffect = require('react-side-effect'),
-    a11yTooklit = require('a11y-toolkit');
+    a11yToolkit = require('a11y-toolkit');
 
 function reducePropsToState(propsList) {
   var innermostProps = propsList[propsList.length - 1];
@@ -13,7 +13,7 @@ function reducePropsToState(propsList) {
 
 function handleStateChangeOnClient(title) {
   if (title) {
-    a11yToolkit.announce(title, 'assertive');
+    a11yToolkit.announce(title + " has loaded", 'assertive');
   }
   document.title = title || '';
 }
