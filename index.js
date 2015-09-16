@@ -1,7 +1,8 @@
 'use strict';
 
 var React = require('react'),
-    withSideEffect = require('react-side-effect');
+    withSideEffect = require('react-side-effect'),
+    a11yTooklit = require('a11y-toolkit');
 
 function reducePropsToState(propsList) {
   var innermostProps = propsList[propsList.length - 1];
@@ -11,10 +12,13 @@ function reducePropsToState(propsList) {
 }
 
 function handleStateChangeOnClient(title) {
+  if (title) {
+    a11yToolkit.announce(title, 'assertive');
+  }
   document.title = title || '';
 }
 
-var DocumentTitle = React.createClass({
+var AnnounceableDocumentTitle = React.createClass({
   propTypes: {
     title: React.PropTypes.string.isRequired
   },
@@ -31,4 +35,4 @@ var DocumentTitle = React.createClass({
 module.exports = withSideEffect(
   reducePropsToState,
   handleStateChangeOnClient
-)(DocumentTitle);
+)(AnnounceableDocumentTitle);

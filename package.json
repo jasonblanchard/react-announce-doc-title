@@ -35,6 +35,7 @@
     "react": "^0.13.0"
   },
   "dependencies": {
-    "react-side-effect": "^1.0.0"
+    "react-side-effect": "^1.0.0",
+    "a11y-toolkit": "jasonblanchard/a11y-toolkit"
   }
 }
