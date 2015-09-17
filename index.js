@@ -42,7 +42,14 @@ var A11yToolkitAnnouncer = React.createClass({
     return React.createElement('div', {
       id:'a11y-toolkit-announcer', 
       'aria-live': 'polite',
-      style: 'position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;'
+      style: {
+        position: 'absolute',
+        left: '-10000px',
+        top: 'auto',
+        width: '1px',
+        height: '1px',
+        overflow: 'hidden',
+      }
     });
   }
 });
