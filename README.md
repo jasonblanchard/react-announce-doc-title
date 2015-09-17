@@ -1,17 +1,17 @@
-React Document Title
+React Announceable Document Title
 ====================
 
-Provides a declarative way to specify `document.title` in a single-page app.  
+Provides a declarative way to specify `document.title` in a single-page app that is accessible to screen readers.
 This component can be used on server side as well.
 
-Built with [React Side Effect](https://github.com/gaearon/react-side-effect).
+Built with [React Side Effect](https://github.com/gaearon/react-side-effect) inspired by [React Document Title](https://github.com/gaearon/react-document-title).
 
 ====================
 
 ## Installation
 
 ```
-npm install --save react-document-title
+npm install --save jasonblanchard/react-announceable-document-title
 ```
 
 Dependencies: React >= 0.13.0
@@ -23,17 +23,20 @@ Dependencies: React >= 0.13.0
 * Can be defined in many places throughout the application;
 * Supports arbitrary levels of nesting, so you can define app-wide and page-specific titles;
 * Works just as well with isomorphic apps.
+* Announces page title changes to screen readers
 
 ## Example
 
 Assuming you use something like [react-router](https://github.com/rackt/react-router):
 
 ```javascript
+import { AnnounceableDocumentTitle } from 'react-announceable-document-title';
+
 var App = React.createClass({
   render: function () {
     // Use "My Web App" if no child overrides this
     return (
-      <DocumentTitle title='My Web App'>
+      <AnnounceableDocumentTitle title='My Web App'>
         <this.props.activeRouteHandler />
       </DocumentTitle>
     );
@@ -44,7 +47,7 @@ var HomePage = React.createClass({
   render: function () {
     // Use "Home" while this component is mounted
     return (
-      <DocumentTitle title='Home'>
+      <AnnounceableDocumentTitle title='Home'>
         <h1>Home, sweet home.</h1>
       </DocumentTitle>
     );
@@ -57,7 +60,7 @@ var NewArticlePage = React.createClass({
   render: function () {
     // Update using value from state while this component is mounted
     return (
-      <DocumentTitle title={this.state.title || 'Untitled'}>
+      <AnnounceableDocumentTitle title={this.state.title || 'Untitled'}>
         <div>
           <h1>New Article</h1>
           <input valueLink={this.linkState('title')} />
@@ -68,12 +71,28 @@ var NewArticlePage = React.createClass({
 });
 ```
 
+In your main page layout, add the a11y-toolkit-announcer div to hold announce messages:
+
+```javascript
+import { React } from 'react';
+import { A11yToolkitAnnouncer } from 'react-announceable-document-title';
+
+export default class RootContainer extends React.Component {
+  render() {
+    return (
+      <div>
+        <A11yToolkitAnnouncer />
+
+        <h1>App</h1>
+        ...
+      </div>
+    );
+  }
+}
+```
+
 ## Server Usage
 
-If you use it on server, call `DocumentTitle.rewind()` **after rendering components to string** to retrieve the title given to the innermost `DocumentTitle`. You can then embed this title into HTML page template.
+If you use it on server, call `AnnounceableDocumentTitle.rewind()` **after rendering components to string** to retrieve the title given to the innermost `DocumentTitle`. You can then embed this title into HTML page template.
 
 Because this component keeps track of mounted instances, **you have to make sure to call `rewind` on server**, or you'll get a memory leak.
-
-## But What About Meta Tags?
-
-Looking for something more powerful? Check out [React Helmet](https://github.com/nfl/react-helmet)!
