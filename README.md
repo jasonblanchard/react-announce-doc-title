@@ -54,15 +54,13 @@ var HomePage = React.createClass({
 });
 
 var NewArticlePage = React.createClass({
-  mixins: [LinkStateMixin],
-
   render: function () {
     // Update using value from state while this component is mounted
     return (
       <AnnounceableDocumentTitle title={this.state.title || 'Untitled'}>
         <div>
           <h1>New Article</h1>
-          <input valueLink={this.linkState('title')} />
+          ...
         </div>
       </DocumentTitle>
     );
