@@ -31,12 +31,12 @@ Dependencies: React >= 0.13.0
 import { React } from 'react';
 import { AnnounceableDocumentTitle } from 'react-announceable-document-title';
 
-var App = React.createClass({
+var RootContainer = React.createClass({
   render: function () {
     // Use "My Web App" if no child overrides this
     return (
       <AnnounceableDocumentTitle title='My Web App'>
-        <this.props.activeRouteHandler />
+        {this.props.children}
       </DocumentTitle>
     );
   }
