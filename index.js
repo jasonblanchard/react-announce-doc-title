@@ -39,7 +39,9 @@ wrappedAnnounceableDocumentTitle = withSideEffect(
 
 var A11yToolkitAnnouncer = React.createClass({
   render: function() {
-    <div id="a11y-toolkit-announcer" aria-live="polite"></div>
+    return (
+      <div id="a11y-toolkit-announcer" aria-live="polite"></div>
+    );
   }
 });
 
