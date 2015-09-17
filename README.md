@@ -27,8 +27,6 @@ Dependencies: React >= 0.13.0
 
 ## Example
 
-Assuming you use something like [react-router](https://github.com/rackt/react-router):
-
 ```javascript
 import { React } from 'react';
 import { AnnounceableDocumentTitle } from 'react-announceable-document-title';
