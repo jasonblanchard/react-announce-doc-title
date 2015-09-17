@@ -32,16 +32,14 @@ var AnnounceableDocumentTitle = React.createClass({
   }
 });
 
-wrappedAnnounceableDocumentTitle = withSideEffect(
+var wrappedAnnounceableDocumentTitle = withSideEffect(
   reducePropsToState,
   handleStateChangeOnClient
 )(AnnounceableDocumentTitle);
 
 var A11yToolkitAnnouncer = React.createClass({
   render: function() {
-    return (
-      <div id="a11y-toolkit-announcer" aria-live="polite"></div>
-    );
+    return React.createElement('div', {id:'a11y-toolkit-announcer', 'aria-live': 'polite'});
   }
 });
 
