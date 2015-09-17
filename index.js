@@ -13,9 +13,9 @@ function reducePropsToState(propsList) {
 
 function handleStateChangeOnClient(title) {
   if (title) {
+    document.title = title;
     a11yToolkit.announce(title + " has loaded", 'assertive');
   }
-  document.title = title || '';
 }
 
 var AnnounceableDocumentTitle = React.createClass({
