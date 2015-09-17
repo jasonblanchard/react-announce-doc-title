@@ -18,7 +18,7 @@ function handleStateChangeOnClient(title) {
   }
 }
 
-var AnnounceableDocumentTitle = React.createClass({
+var AnnounceDocTitle = React.createClass({
   propTypes: {
     title: React.PropTypes.string.isRequired
   },
@@ -32,10 +32,10 @@ var AnnounceableDocumentTitle = React.createClass({
   }
 });
 
-var wrappedAnnounceableDocumentTitle = withSideEffect(
+var wrappedAnnounceDocTitle = withSideEffect(
   reducePropsToState,
   handleStateChangeOnClient
-)(AnnounceableDocumentTitle);
+)(AnnounceDocTitle);
 
 var A11yToolkitAnnouncer = React.createClass({
   render: function() {
@@ -55,6 +55,6 @@ var A11yToolkitAnnouncer = React.createClass({
 });
 
 module.exports = {
-  AnnounceableDocumentTitle: wrappedAnnounceableDocumentTitle,
+  AnnounceDocTitle: wrappedAnnounceDocTitle,
   A11yToolkitAnnouncer: A11yToolkitAnnouncer,
 };

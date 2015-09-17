@@ -1,5 +1,5 @@
 {
-  "name": "react-announceable-document-title",
+  "name": "react-announce-doc-title",
   "version": "0.0.1",
   "description": "A declarative, nested, stateful document.title for React. But accessible.",
   "main": "index.js",
