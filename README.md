@@ -1,5 +1,4 @@
-WIP: React Announceable Document Title
-====================
+# WIP: React Announceable Document Title
 
 Provides a declarative way to specify `document.title` in a single-page app that is accessible to screen readers.
 This component can be used on server side as well.
@@ -7,8 +6,6 @@ This component can be used on server side as well.
 Built with [React Side Effect](https://github.com/gaearon/react-side-effect), inspired by [React Document Title](https://github.com/gaearon/react-document-title).
 
 This is a work in progress!!
-
-====================
 
 ## Installation
 
@@ -20,11 +17,10 @@ Dependencies: React >= 0.13.0
 
 ## Features
 
-* Does not emit DOM, not even a `<noscript>`;
 * Like a normal React compoment, can use its parent's `props` and `state`;
 * Can be defined in many places throughout the application;
 * Supports arbitrary levels of nesting, so you can define app-wide and page-specific titles;
-* Works just as well with isomorphic apps.
+* Works with universal apps.
 * Announces page title changes to screen readers
 
 ## Usage
