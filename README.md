@@ -2,7 +2,7 @@
 
 Provides a declarative way to specify `document.title` in a single-page app that will be announced to screen readers when it changes. This component can be used on server side as well.
 
-Built with [React Side Effect](https://github.com/gaearon/react-side-effect), inspired by [React Document Title](https://github.com/gaearon/react-document-title).
+Built with [React Side Effect](https://github.com/gaearon/react-side-effect), built off of [React Document Title](https://github.com/gaearon/react-document-title) and inspired by [a11y-announcer](https://github.com/Robdel12/a11y-announcer) for Ember.js
 
 **NOTE:** This is a work in progress!!
 
