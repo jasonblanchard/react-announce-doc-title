@@ -12,9 +12,14 @@ function reducePropsToState(propsList) {
 }
 
 function handleStateChangeOnClient(title) {
+  var currentDocTitle = document.title;
+
   if (title) {
     document.title = title;
-    a11yToolkit.announce(title + " has loaded", 'assertive');
+
+    if (currentDocTitle != title) {
+      a11yToolkit.announce(title + " has loaded", 'assertive');
+    }
   }
 }
 
