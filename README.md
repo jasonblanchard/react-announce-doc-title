@@ -1,11 +1,10 @@
 # WIP: React Announceable Document Title
 
-Provides a declarative way to specify `document.title` in a single-page app that is accessible to screen readers.
-This component can be used on server side as well.
+Provides a declarative way to specify `document.title` in a single-page app that will be announced to screen readers when it changes. This component can be used on server side as well.
 
 Built with [React Side Effect](https://github.com/gaearon/react-side-effect), inspired by [React Document Title](https://github.com/gaearon/react-document-title).
 
-This is a work in progress!!
+**NOTE:** This is a work in progress!!
 
 ## Installation
 
@@ -25,7 +24,7 @@ Dependencies: React >= 0.13.0
 
 ## Usage
 
-### 1. Setting the title
+### 1. Set the title
 Wrap page containers in the `<AnnounceDocTitle>` component:
 
 ```javascript
@@ -68,9 +67,9 @@ export default class RootContainer extends React.Component {
 
 This will add a visibly hidden (but reachable by screen readers) element on the page that has an `aria-live` tag that will automatically announce when the content changes. Each time the page title updates, it will populate here and trigger an announcement.
 
-It's best practice that this container is available on the page at page load, not added later via a JS script. Using the `<A11yToolkitAnnouncer />` in your root continer assumes you are rendering your app to string on the server as a universal (or isomorpic) app. (See below for more details on server rendering the page title). If you are not building a universal app, do no use the `<A11yToolkitAnnouncer />` and add the announcer div manually on your HTML page following [these instructions from `a11y-toolkit`](https://github.com/jasonblanchard/a11y-toolkit#announce).
+It's best practice that this container is available on the page at page load, not added later via a JS script. Using the `<A11yToolkitAnnouncer />` in your root continer assumes you are rendering your app to string on the server as a universal (or isomorpic) app. (See below for more details on server rendering the page title). If you are not building a universal app, do not use the `<A11yToolkitAnnouncer />` and add the announcer div manually on your HTML page following [these instructions from `a11y-toolkit`](https://github.com/jasonblanchard/a11y-toolkit#announce).
 
-### 3. Setting page title on the server
+### 3. Get page title on the server
 When rendering your app on the server, you'll want to pull out the page title from your component tree and set it  in the template so that it has the right title on initial pagel load. Here's a truncated example using Express:
 
 `server.js`:
