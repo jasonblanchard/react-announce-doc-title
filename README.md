@@ -70,7 +70,7 @@ This will add a visibly hidden (but reachable by screen readers) element on the 
 
 It's best practice that this container is available on the page at page load, not added later via a JS script. Using the `<A11yToolkitAnnouncer />` in your root continer assumes you are rendering your app to string on the server as a universal (or isomorpic) app. (See below for more details on server rendering the page title). If you are not building a universal app, do no use the `<A11yToolkitAnnouncer />` and add the announcer div manually on your HTML page following [these instructions from `a11y-toolkit`](https://github.com/jasonblanchard/a11y-toolkit#announce).
 
-### 3. Setting page title on the server
+### 3. Get page title on the server
 When rendering your app on the server, you'll want to pull out the page title from your component tree and set it  in the template so that it has the right title on initial pagel load. Here's a truncated example using Express:
 
 `server.js`:
