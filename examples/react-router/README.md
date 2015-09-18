@@ -1,1 +1,3 @@
-Just another React base app structure. WIP. Nothing to see here.
+Example using React Router.
+
+`npm install` and then `npm start` to spin up a dev server.
