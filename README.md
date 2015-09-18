@@ -25,7 +25,7 @@ Dependencies: React >= 0.13.0
 
 ## Usage
 
-### 1. Setting the title
+### 1. Set the title
 Wrap page containers in the `<AnnounceDocTitle>` component:
 
 ```javascript
