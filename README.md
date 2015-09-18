@@ -27,71 +27,93 @@ Dependencies: React >= 0.13.0
 * Works just as well with isomorphic apps.
 * Announces page title changes to screen readers
 
-## Example
+## Usage
+
+### 1. Setting the title
+Wrap page containers in the `<AnnounceDocTitle>` component:
 
 ```javascript
-import { React } from 'react';
-import { AnnounceableDocumentTitle } from 'react-announceable-document-title';
+import React from 'react';
+import { AnnounceDocTitle } from 'react-announce-doc-title';
 
-var RootContainer = React.createClass({
-  render: function () {
-    // Use "My Web App" if no child overrides this
-    return (
-      <AnnounceableDocumentTitle title='My Web App'>
-        {this.props.children}
-      </DocumentTitle>
-    );
-  }
-});
-
-var HomePage = React.createClass({
-  render: function () {
-    // Use "Home" while this component is mounted
-    return (
-      <AnnounceableDocumentTitle title='Home'>
-        <h1>Home, sweet home.</h1>
-      </DocumentTitle>
-    );
-  }
-});
-
-var NewArticlePage = React.createClass({
-  render: function () {
-    // Update using value from state while this component is mounted
-    return (
-      <AnnounceableDocumentTitle title={this.state.title || 'Untitled'}>
+export default class AboutPage extends React.Component {
+  render() {
+    return(
+      <AnnounceDocTitle title="About - React App">
         <div>
-          <h1>New Article</h1>
-          ...
+          All about this sweet, sweet single page app.
         </div>
-      </DocumentTitle>
+      </AnnounceDocTitle>
     );
   }
-});
 ```
 
-In your main page layout, add the a11y-toolkit-announcer div to hold announce messages:
+If you have `<AnnounceDocTitle>` components nested inside other `<AnnounceDocTitle>` components, the inner-most `title` will win.
+
+### 2. Add the announcer component
+In your root container or main page layout, add the `<A11yToolkitAnnouncer />` container to hold the announce messages:
 
 ```javascript
-import { React } from 'react';
-import { A11yToolkitAnnouncer } from 'react-announceable-document-title';
+import React from 'react';
+import { A11yToolkitAnnouncer } from 'react-announce-doc-title';
 
 export default class RootContainer extends React.Component {
   render() {
     return (
       <div>
         <A11yToolkitAnnouncer />
-
-        <h1>App</h1>
-        ...
+        
+        <h1>Single Page React App</h1>
+        {this.props.children}
       </div>
     );
   }
-}
 ```
 
-## Server Usage
+This will add a visibly hidden (but reachable by screen readers) element on the page that has an `aria-live` tag that will automatically announce when the content changes. Each time the page title updates, it will populate here and trigger an announcement.
 
-If you use it on server, call `AnnounceableDocumentTitle.rewind()` **after rendering components to string** to retrieve the title given to the innermost `DocumentTitle`. You can then embed this title into HTML page template.
+It's best practice that this container is available on the page at page load, not added later via a JS script. Using the `<A11yToolkitAnnouncer />` in your root continer assumes you are rendering your app to string on the server as a universal (or isomorpic) app. (See below for more details on server rendering the page title). If you are not building a universal app, do no use the `<A11yToolkitAnnouncer />` and add the announcer div manually on your HTML page following [these instructions from `a11y-toolkit`](https://github.com/jasonblanchard/a11y-toolkit#announce).
 
-Because this component keeps track of mounted instances, **you have to make sure to call `rewind` on server**, or you'll get a memory leak.
+### 3. Setting page title on the server
+When rendering your app on the server, you'll want to pull out the page title from your component tree and set it  in the template so that it has the right title on initial pagel load. Here's a truncated example using Express:
+
+`server.js`:
+```javascript
+import express from 'express';
+import exphbs from 'express-handlebars';
+import React from 'react';
+import { AnnounceDocTitle } from 'react-announce-doc-title';
+import RootContainer from '../shared/containers/RootContainer';
+
+const app = express();
+
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
+
+...
+
+app.get('/*', (req, res) => {
+  const markup = React.renderToString(<RootContainer />);
+  const documentTitle = AnnounceDocTitle.rewind();
+  
+  res.render('index', {
+    markup: markup,
+    documentTitle: documentTitle
+  });
+});
+```
+
+`index.handlebars`:
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{documentTitle}}</title>
+  </head>
+  <body>
+    <div id='app'>{{{markup}}}</div>
+  </body>
+</html>
+```
+
+Because this component keeps track of mounted instances, **you have to make sure to call `rewind` on server after `renderToString`**, or you'll get a memory leak. More info in the [React Side Effect docs](https://github.com/gaearon/react-side-effect#api).
